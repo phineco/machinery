@@ -3,7 +3,14 @@ const nextConfig = {
   experimental: {
   },
   images: {
-    domains: ['coresg-normal.trae.ai'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'coresg-normal.trae.ai',
+        port: '',
+        pathname: '/api/ide/v1/text_to_image/**',
+      },
+    ],
   },
 }
 

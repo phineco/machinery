@@ -1,9 +1,31 @@
-import { PrismaClient } from '@prisma/client';
+// 简化的数据存储，不使用Prisma
+export interface Inquiry {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  message: string;
+  productId?: string;
+  createdAt: Date;
+}
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined;
+// 内存中的数据存储
+const inquiries: Inquiry[] = [];
+
+export const db = {
+  inquiry: {
+    create: async (data: Omit<Inquiry, 'id' | 'createdAt'>) => {
+      const inquiry: Inquiry = {
+        id: Math.random().toString(36).substr(2, 9),
+        ...data,
+        createdAt: new Date()
+      };
+      inquiries.push(inquiry);
+      return inquiry;
+    },
+    findMany: async () => {
+      return inquiries;
+    }
+  }
 };
-
-export const prisma = globalForPrisma.prisma ?? new PrismaClient();
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
