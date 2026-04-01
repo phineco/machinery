@@ -4,7 +4,13 @@
     "subtitle": "High Quality Second Hand Excavators & Equipment",
     "searchPlaceholder": "Search excavators, loaders, cranes...",
     "browseProducts": "Browse Products",
-    "contactUs": "Contact Us"
+    "contactUs": "Contact Us",
+    "featuredProducts": "Featured Products",
+    "aboutUs": "About Our Company",
+    "aboutDesc": "We specialize in exporting high-quality used construction machinery to global markets. With over 10 years of experience, we provide reliable equipment and excellent service to customers in Africa, Southeast Asia, South America, and the Middle East.",
+    "machinesSold": "Machines Sold",
+    "countriesServed": "Countries Served",
+    "yearsExperience": "Years Experience"
   },
   "ProductCard": {
     "brand": "Brand",
@@ -20,12 +26,43 @@
     "message": "Message",
     "submit": "Send Message",
     "submitting": "Sending...",
-    "success": "Thank you! We will contact you soon."
+    "success": "Thank you for your inquiry! We will contact you soon."
   },
   "Navigation": {
     "home": "Home",
     "products": "Products",
     "about": "About",
-    "contact": "Contact"
+    "contact": "Contact",
+    "title": "Machinery Portal"
+  },
+  "ProductsPage": {
+    "title": "Construction Equipment",
+    "showing": "Showing {count} machines",
+    "filters": "Filters",
+    "category": "Category",
+    "allCategories": "All Categories",
+    "excavators": "Excavators",
+    "loaders": "Loaders",
+    "cranes": "Cranes",
+    "bulldozers": "Bulldozers",
+    "allBrands": "All Brands",
+    "from": "From",
+    "to": "To",
+    "min": "Min",
+    "max": "Max",
+    "applyFilters": "Apply Filters"
+  },
+  "ContactPage": {
+    "title": "Contact Us",
+    "getInTouch": "Get in Touch",
+    "whatsapp": "WhatsApp:",
+    "email": "Email:",
+    "address": "Address:",
+    "addressValue": "Shanghai, China",
+    "businessHours": "Business Hours",
+    "monFri": "Monday - Friday:",
+    "sat": "Saturday:",
+    "sun": "Sunday:",
+    "closed": "Closed"
   }
 }

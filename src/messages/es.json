@@ -4,7 +4,13 @@
     "subtitle": "Excavadoras y Equipos de Segunda Mano de Alta Calidad",
     "searchPlaceholder": "Buscar excavadoras, cargadoras, grúas...",
     "browseProducts": "Ver Productos",
-    "contactUs": "Contactar"
+    "contactUs": "Contactar",
+    "featuredProducts": "Productos Destacados",
+    "aboutUs": "Sobre Nuestra Empresa",
+    "aboutDesc": "Nos especializamos en la exportación de maquinaria de construcción usada de alta calidad a mercados globales. Con más de 10 años de experiencia, ofrecemos equipos confiables y excelente servicio a clientes en África, Sudeste Asiático, Sudamérica y Medio Oriente.",
+    "machinesSold": "Máquinas Vendidas",
+    "countriesServed": "Países Atendidos",
+    "yearsExperience": "Años de Experiencia"
   },
   "ProductCard": {
     "brand": "Marca",
@@ -20,12 +26,43 @@
     "message": "Mensaje",
     "submit": "Enviar Mensaje",
     "submitting": "Enviando...",
-    "success": "¡Gracias! Nos pondremos en contacto pronto."
+    "success": "¡Gracias por su consulta! Nos pondremos en contacto pronto."
   },
   "Navigation": {
     "home": "Inicio",
     "products": "Productos",
     "about": "Acerca de",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "title": "Portal de Maquinaria"
+  },
+  "ProductsPage": {
+    "title": "Equipos de Construcción",
+    "showing": "Mostrando {count} máquinas",
+    "filters": "Filtros",
+    "category": "Categoría",
+    "allCategories": "Todas las Categorías",
+    "excavators": "Excavadoras",
+    "loaders": "Cargadoras",
+    "cranes": "Grúas",
+    "bulldozers": "Tractores",
+    "allBrands": "Todas las Marcas",
+    "from": "Desde",
+    "to": "Hasta",
+    "min": "Mín",
+    "max": "Máx",
+    "applyFilters": "Aplicar Filtros"
+  },
+  "ContactPage": {
+    "title": "Contactar",
+    "getInTouch": "Ponte en Contacto",
+    "whatsapp": "WhatsApp:",
+    "email": "Correo:",
+    "address": "Dirección:",
+    "addressValue": "Shanghái, China",
+    "businessHours": "Horario de Atención",
+    "monFri": "Lunes - Viernes:",
+    "sat": "Sábado:",
+    "sun": "Domingo:",
+    "closed": "Cerrado"
   }
 }

@@ -1,4 +1,5 @@
 import ProductCard from '@/components/ProductCard';
+import { getDictionary } from '@/i18n/dictionaries';
 
 const mockProducts = [
   {
@@ -30,59 +31,60 @@ const mockProducts = [
   }
 ];
 
-export default function HomePage({
+export default async function HomePage({
   params
 }: {
   params: Promise<{locale: string}>;
 }) {
+  const {locale} = await params;
+  const dict = await getDictionary(locale);
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg text-white p-8 mb-12">
-        <h1 className="text-4xl font-bold mb-4">Professional Construction Machinery Export</h1>
-        <p className="text-xl mb-6">High-quality used construction equipment for global markets</p>
+        <h1 className="text-4xl font-bold mb-4">{dict.HomePage.title}</h1>
+        <p className="text-xl mb-6">{dict.HomePage.subtitle}</p>
         <div className="flex flex-col sm:flex-row gap-4">
           <input 
             type="text" 
-            placeholder="Search for equipment..."
+            placeholder={dict.HomePage.searchPlaceholder}
             className="flex-1 px-4 py-2 rounded-lg text-gray-900"
           />
-          <button className="bg-orange-500 hover:bg-orange-600 px-6 py-2 rounded-lg font-medium">
-            Browse Products
+          <button className="bg-orange-500 hover:bg-orange-600 px-6 py-2 rounded-lg font-medium whitespace-nowrap">
+            {dict.HomePage.browseProducts}
           </button>
         </div>
       </div>
 
       {/* Featured Products */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Featured Products</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">{dict.HomePage.featuredProducts}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} dict={dict.ProductCard} />
           ))}
         </div>
       </div>
 
       {/* About Section */}
       <div className="bg-white rounded-lg p-8 shadow-sm">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">About Our Company</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">{dict.HomePage.aboutUs}</h2>
         <p className="text-gray-600 mb-4">
-          We specialize in exporting high-quality used construction machinery to global markets. 
-          With over 10 years of experience, we provide reliable equipment and excellent service 
-          to customers in Africa, Southeast Asia, South America, and the Middle East.
+          {dict.HomePage.aboutDesc}
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
           <div className="text-center">
             <div className="text-3xl font-bold text-blue-600">500+</div>
-            <div className="text-gray-600">Machines Sold</div>
+            <div className="text-gray-600">{dict.HomePage.machinesSold}</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-blue-600">50+</div>
-            <div className="text-gray-600">Countries Served</div>
+            <div className="text-gray-600">{dict.HomePage.countriesServed}</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-blue-600">10+</div>
-            <div className="text-gray-600">Years Experience</div>
+            <div className="text-gray-600">{dict.HomePage.yearsExperience}</div>
           </div>
         </div>
       </div>

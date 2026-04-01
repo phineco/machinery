@@ -3,7 +3,13 @@
 import Link from 'next/link';
 import {useState} from 'react';
 
-export default function Navigation() {
+export default function Navigation({ 
+  locale, 
+  dict 
+}: { 
+  locale: string; 
+  dict: { home: string; products: string; about: string; contact: string; title: string; } 
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -11,24 +17,27 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link href="/" className="text-xl font-bold text-gray-800">
-              Machinery Portal
+            <Link href={`/${locale}`} className="text-xl font-bold text-gray-800">
+              {dict.title || 'Machinery Portal'}
             </Link>
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/products" className="text-gray-700 hover:text-blue-600">
-              Products
+            <Link href={`/${locale}/products`} className="text-gray-700 hover:text-blue-600">
+              {dict.products || 'Products'}
             </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-blue-600">
-              Contact
+            <Link href={`/${locale}/contact`} className="text-gray-700 hover:text-blue-600">
+              {dict.contact || 'Contact'}
             </Link>
             <div className="flex space-x-2">
-              <Link href="/en" className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded">
+              <Link href="/en" className={`px-3 py-1 text-sm rounded ${locale === 'en' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'}`}>
                 EN
               </Link>
-              <Link href="/es" className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded">
+              <Link href="/es" className={`px-3 py-1 text-sm rounded ${locale === 'es' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'}`}>
                 ES
+              </Link>
+              <Link href="/zh" className={`px-3 py-1 text-sm rounded ${locale === 'zh' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'}`}>
+                中文
               </Link>
             </div>
           </div>
@@ -49,18 +58,21 @@ export default function Navigation() {
       {isMenuOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <Link href="/products" className="block px-3 py-2 text-gray-700 hover:text-blue-600">
-              Products
+            <Link href={`/${locale}/products`} className="block px-3 py-2 text-gray-700 hover:text-blue-600">
+              {dict.products || 'Products'}
             </Link>
-            <Link href="/contact" className="block px-3 py-2 text-gray-700 hover:text-blue-600">
-              Contact
+            <Link href={`/${locale}/contact`} className="block px-3 py-2 text-gray-700 hover:text-blue-600">
+              {dict.contact || 'Contact'}
             </Link>
             <div className="flex space-x-2 px-3 py-2">
-              <Link href="/en" className="px-3 py-1 text-sm bg-blue-100 text-blue-700 rounded">
+              <Link href="/en" className={`px-3 py-1 text-sm rounded ${locale === 'en' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'}`}>
                 EN
               </Link>
-              <Link href="/es" className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded">
+              <Link href="/es" className={`px-3 py-1 text-sm rounded ${locale === 'es' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'}`}>
                 ES
+              </Link>
+              <Link href="/zh" className={`px-3 py-1 text-sm rounded ${locale === 'zh' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'}`}>
+                中文
               </Link>
             </div>
           </div>

@@ -1,5 +1,5 @@
-import { useTranslations } from 'next-intl';
 import ProductCard from '@/components/ProductCard';
+import { getDictionary } from '@/i18n/dictionaries';
 
 const products = [
   {
@@ -58,31 +58,39 @@ const products = [
   }
 ];
 
-export default function ProductsPage() {
+export default async function ProductsPage({
+  params
+}: {
+  params: Promise<{locale: string}>;
+}) {
+  const {locale} = await params;
+  const dict = await getDictionary(locale);
+  const pDict = dict.ProductsPage || {};
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Filters Sidebar */}
         <div className="lg:w-1/4">
           <div className="bg-white p-6 rounded-lg shadow-sm border">
-            <h3 className="font-bold text-lg mb-4">Filters</h3>
+            <h3 className="font-bold text-lg mb-4">{pDict.filters || 'Filters'}</h3>
             
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium mb-2">Category</label>
+                <label className="block text-sm font-medium mb-2">{pDict.category || 'Category'}</label>
                 <select className="w-full border p-2 rounded">
-                  <option>All Categories</option>
-                  <option>Excavators</option>
-                  <option>Loaders</option>
-                  <option>Cranes</option>
-                  <option>Bulldozers</option>
+                  <option>{pDict.allCategories || 'All Categories'}</option>
+                  <option>{pDict.excavators || 'Excavators'}</option>
+                  <option>{pDict.loaders || 'Loaders'}</option>
+                  <option>{pDict.cranes || 'Cranes'}</option>
+                  <option>{pDict.bulldozers || 'Bulldozers'}</option>
                 </select>
               </div>
               
               <div>
                 <label className="block text-sm font-medium mb-2">Brand</label>
                 <select className="w-full border p-2 rounded">
-                  <option>All Brands</option>
+                  <option>{pDict.allBrands || 'All Brands'}</option>
                   <option>Caterpillar</option>
                   <option>Komatsu</option>
                   <option>Hitachi</option>
@@ -94,21 +102,21 @@ export default function ProductsPage() {
               <div>
                 <label className="block text-sm font-medium mb-2">Year</label>
                 <div className="flex gap-2">
-                  <input type="number" placeholder="From" className="w-full border p-2 rounded" />
-                  <input type="number" placeholder="To" className="w-full border p-2 rounded" />
+                  <input type="number" placeholder={pDict.from || 'From'} className="w-full border p-2 rounded" />
+                  <input type="number" placeholder={pDict.to || 'To'} className="w-full border p-2 rounded" />
                 </div>
               </div>
               
               <div>
                 <label className="block text-sm font-medium mb-2">Hours</label>
                 <div className="flex gap-2">
-                  <input type="number" placeholder="Min" className="w-full border p-2 rounded" />
-                  <input type="number" placeholder="Max" className="w-full border p-2 rounded" />
+                  <input type="number" placeholder={pDict.min || 'Min'} className="w-full border p-2 rounded" />
+                  <input type="number" placeholder={pDict.max || 'Max'} className="w-full border p-2 rounded" />
                 </div>
               </div>
               
               <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-                Apply Filters
+                {pDict.applyFilters || 'Apply Filters'}
               </button>
             </div>
           </div>
@@ -117,13 +125,13 @@ export default function ProductsPage() {
         {/* Products Grid */}
         <div className="lg:w-3/4">
           <div className="mb-6">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Construction Equipment</h1>
-            <p className="text-gray-600">Showing {products.length} machines</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">{pDict.title || 'Construction Equipment'}</h1>
+            <p className="text-gray-600">{(pDict.showing || 'Showing {count} machines').replace('{count}', products.length.toString())}</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} dict={dict.ProductCard} />
             ))}
           </div>
         </div>
