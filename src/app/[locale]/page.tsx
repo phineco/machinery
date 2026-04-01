@@ -45,16 +45,6 @@ export default async function HomePage({
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg text-white p-8 mb-12">
         <h1 className="text-4xl font-bold mb-4">{dict.HomePage.title}</h1>
         <p className="text-xl mb-6">{dict.HomePage.subtitle}</p>
-        <div className="flex flex-col sm:flex-row gap-4">
-          <input 
-            type="text" 
-            placeholder={dict.HomePage.searchPlaceholder}
-            className="flex-1 px-4 py-2 rounded-lg text-gray-900"
-          />
-          <button className="bg-orange-500 hover:bg-orange-600 px-6 py-2 rounded-lg font-medium whitespace-nowrap">
-            {dict.HomePage.browseProducts}
-          </button>
-        </div>
       </div>
 
       {/* Featured Products */}
