@@ -1,4 +1,3 @@
-import { useTranslations } from 'next-intl';
 import ProductCard from '@/components/ProductCard';
 
 const mockProducts = [
@@ -36,22 +35,20 @@ export default function HomePage({
 }: {
   params: Promise<{locale: string}>;
 }) {
-  const t = useTranslations('HomePage');
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg text-white p-8 mb-12">
-        <h1 className="text-4xl font-bold mb-4">{t('title')}</h1>
-        <p className="text-xl mb-6">{t('subtitle')}</p>
+        <h1 className="text-4xl font-bold mb-4">Professional Construction Machinery Export</h1>
+        <p className="text-xl mb-6">High-quality used construction equipment for global markets</p>
         <div className="flex flex-col sm:flex-row gap-4">
           <input 
             type="text" 
-            placeholder={t('searchPlaceholder')}
+            placeholder="Search for equipment..."
             className="flex-1 px-4 py-2 rounded-lg text-gray-900"
           />
           <button className="bg-orange-500 hover:bg-orange-600 px-6 py-2 rounded-lg font-medium">
-            {t('browseProducts')}
+            Browse Products
           </button>
         </div>
       </div>
