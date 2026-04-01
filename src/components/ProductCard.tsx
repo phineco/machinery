@@ -1,4 +1,8 @@
+'use client';
+
 import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 interface Product {
   id: string;
@@ -11,6 +15,9 @@ interface Product {
 }
 
 export default function ProductCard({ product, dict }: { product: Product, dict: any }) {
+  const pathname = usePathname() || '/en';
+  const locale = pathname.split('/')[1] || 'en';
+  
   // WhatsApp 预设消息格式
   const waNumber = "8613800000000"; // 替换为您的 WhatsApp 商业号
   const waMessage = encodeURIComponent(`Hi, I'm interested in your ${product.title} (ID: ${product.id}). Could you provide more details?`);
@@ -41,10 +48,13 @@ export default function ProductCard({ product, dict }: { product: Product, dict:
           >
             <span>💬 {dict?.whatsapp || 'WhatsApp'}</span>
           </a>
-          {/* 在线留言按钮 */}
-          <button className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 rounded font-medium">
+          {/* 在线留言按钮 - 跳转到联系页面并带上产品ID */}
+          <Link 
+            href={`/${locale}/contact?productId=${product.id}&productName=${encodeURIComponent(product.title)}`}
+            className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 rounded font-medium text-center flex items-center justify-center"
+          >
             {dict?.inquire || 'Inquire'}
-          </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -11,15 +11,24 @@ export default function InquiryForm({ productId, dict }: { productId?: string, d
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
-    // 调用后端 API 保存留言
-    const response = await fetch('/api/inquiries', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...data, productId }),
-    });
+    try {
+      // 调用后端 API 保存留言
+      const response = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...data, productId }),
+      });
 
-    if (response.ok) {
-      setStatus('success');
+      if (response.ok) {
+        setStatus('success');
+      } else {
+        setStatus('idle');
+        alert(dict?.error || 'Failed to send inquiry. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setStatus('idle');
+      alert(dict?.error || 'Failed to send inquiry. Please try again.');
     }
   };
 
