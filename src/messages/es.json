@@ -1,0 +1,31 @@
+{
+  "HomePage": {
+    "title": "Exportación de Maquinaria de Construcción Usada",
+    "subtitle": "Excavadoras y Equipos de Segunda Mano de Alta Calidad",
+    "searchPlaceholder": "Buscar excavadoras, cargadoras, grúas...",
+    "browseProducts": "Ver Productos",
+    "contactUs": "Contactar"
+  },
+  "ProductCard": {
+    "brand": "Marca",
+    "year": "Año",
+    "hours": "Horas",
+    "inquire": "Enviar Consulta",
+    "whatsapp": "WhatsApp"
+  },
+  "InquiryForm": {
+    "title": "Enviar Consulta",
+    "name": "Nombre *",
+    "contact": "Email/WhatsApp *",
+    "message": "Mensaje",
+    "submit": "Enviar Mensaje",
+    "submitting": "Enviando...",
+    "success": "¡Gracias! Nos pondremos en contacto pronto."
+  },
+  "Navigation": {
+    "home": "Inicio",
+    "products": "Productos",
+    "about": "Acerca de",
+    "contact": "Contacto"
+  }
+}

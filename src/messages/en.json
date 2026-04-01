@@ -1,0 +1,31 @@
+{
+  "HomePage": {
+    "title": "Used Construction Machinery Export",
+    "subtitle": "High Quality Second Hand Excavators & Equipment",
+    "searchPlaceholder": "Search excavators, loaders, cranes...",
+    "browseProducts": "Browse Products",
+    "contactUs": "Contact Us"
+  },
+  "ProductCard": {
+    "brand": "Brand",
+    "year": "Year",
+    "hours": "Hours",
+    "inquire": "Send Inquiry",
+    "whatsapp": "WhatsApp"
+  },
+  "InquiryForm": {
+    "title": "Send Inquiry",
+    "name": "Name *",
+    "contact": "Email/WhatsApp *",
+    "message": "Message",
+    "submit": "Send Message",
+    "submitting": "Sending...",
+    "success": "Thank you! We will contact you soon."
+  },
+  "Navigation": {
+    "home": "Home",
+    "products": "Products",
+    "about": "About",
+    "contact": "Contact"
+  }
+}
