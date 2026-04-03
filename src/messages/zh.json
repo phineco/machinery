@@ -19,6 +19,20 @@
     "inquire": "发送询盘",
     "whatsapp": "WhatsApp"
   },
+  "ProductDetails": {
+    "brand": "品牌",
+    "model": "型号",
+    "type": "类型",
+    "year": "出厂年份",
+    "hours": "运行小时数",
+    "weight": "净重",
+    "description": "详细描述",
+    "basicInfo": "基本信息",
+    "gallery": "图片展示",
+    "sendInquiry": "发送询盘",
+    "price": "价格",
+    "location": "位置"
+  },
   "InquiryForm": {
     "title": "发送询盘",
     "name": "姓名 *",

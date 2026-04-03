@@ -19,6 +19,20 @@
     "inquire": "Enviar Consulta",
     "whatsapp": "WhatsApp"
   },
+  "ProductDetails": {
+    "brand": "Marca",
+    "model": "Modelo",
+    "type": "Tipo",
+    "year": "Año de fabricación",
+    "hours": "Horas de funcionamiento",
+    "weight": "Peso neto",
+    "description": "Descripción",
+    "basicInfo": "Información Básica",
+    "gallery": "Galería",
+    "sendInquiry": "Enviar Consulta",
+    "price": "Precio",
+    "location": "Ubicación"
+  },
   "InquiryForm": {
     "title": "Enviar Consulta",
     "name": "Nombre *",

@@ -19,6 +19,20 @@
     "inquire": "Send Inquiry",
     "whatsapp": "WhatsApp"
   },
+  "ProductDetails": {
+    "brand": "Brand",
+    "model": "Model",
+    "type": "Type",
+    "year": "Year of manufacture",
+    "hours": "Running hours",
+    "weight": "Net weight",
+    "description": "Description",
+    "basicInfo": "Basic Information",
+    "gallery": "Gallery",
+    "sendInquiry": "Send Inquiry",
+    "price": "Price",
+    "location": "Location"
+  },
   "InquiryForm": {
     "title": "Send Inquiry",
     "name": "Name *",
