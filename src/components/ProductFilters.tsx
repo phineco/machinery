@@ -56,7 +56,7 @@ export default function ProductFilters({ pDict }: { pDict: any }) {
         </div>
         
         <div>
-          <label className="block text-sm font-medium mb-2">Brand</label>
+          <label className="block text-sm font-medium mb-2">{pDict.brand || 'Brand'}</label>
           <select 
             className="w-full border p-2 rounded"
             value={brand}
@@ -73,7 +73,7 @@ export default function ProductFilters({ pDict }: { pDict: any }) {
         
         {/* 年份和小时数过滤后续可继续接入，此处暂保留结构 */}
         <div>
-          <label className="block text-sm font-medium mb-2">Year</label>
+          <label className="block text-sm font-medium mb-2">{pDict.year || 'Year'}</label>
           <div className="flex gap-2">
             <input type="number" placeholder={pDict.from || 'From'} className="w-full border p-2 rounded" />
             <input type="number" placeholder={pDict.to || 'To'} className="w-full border p-2 rounded" />
@@ -81,7 +81,7 @@ export default function ProductFilters({ pDict }: { pDict: any }) {
         </div>
         
         <div>
-          <label className="block text-sm font-medium mb-2">Hours</label>
+          <label className="block text-sm font-medium mb-2">{pDict.hours || 'Hours'}</label>
           <div className="flex gap-2">
             <input type="number" placeholder={pDict.min || 'Min'} className="w-full border p-2 rounded" />
             <input type="number" placeholder={pDict.max || 'Max'} className="w-full border p-2 rounded" />
