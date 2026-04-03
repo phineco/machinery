@@ -29,3 +29,39 @@ export function getCategoryName(typeValue: string | number, dict: any): string {
       return typeStr || '-';
   }
 }
+
+/**
+ * 品牌枚举类型
+ * 1: Caterpillar
+ * 2: Komatsu
+ * 3: Hitachi
+ * 4: Volvo
+ * 5: Doosan
+ */
+
+/**
+ * 将品牌枚举数字转换为对应的品牌名称
+ * 
+ * @param brandValue API 返回的 brand 字符串或数字（如 '1', '2'）
+ * @returns 品牌名称文本
+ */
+export function getBrandName(brandValue: string | number | undefined): string {
+  if (!brandValue) return '';
+  const brandStr = String(brandValue);
+  
+  switch (brandStr) {
+    case '1':
+      return 'Caterpillar';
+    case '2':
+      return 'Komatsu';
+    case '3':
+      return 'Hitachi';
+    case '4':
+      return 'Volvo';
+    case '5':
+      return 'Doosan';
+    default:
+      // 如果后端传来的不是数字，而是真实名称，直接返回
+      return brandStr;
+  }
+}

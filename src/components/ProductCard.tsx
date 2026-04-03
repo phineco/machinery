@@ -3,12 +3,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ApiProduct } from '@/services/api';
+import { getBrandName } from '@/utils/category';
 
 export default function ProductCard({ product, dict, locale = 'en' }: { product: ApiProduct, dict: any, locale?: string }) {
+  // 解析品牌名称
+  const brandName = getBrandName(product.brand);
+
   // WhatsApp 预设消息格式
   const waNumber = "8613800000000"; // 替换为您的 WhatsApp 商业号
   // 拼接标题，如果有品牌和型号则拼接，否则用ID
-  const productTitle = `${product.brand || ''} ${product.model || ''}`.trim() || `Product ${product.id}`;
+  const productTitle = `${brandName} ${product.model || ''}`.trim() || `Product ${product.id}`;
   // React Hydration 会在客户端使用 encodeURIComponent 后的值与服务端对比可能出现问题，
   // 为了避免 hydration error，我们将链接的生成放到渲染中或者确保一致。
   // 注意：encodeURIComponent 会导致 `%` 字符，在服务端和客户端生成是完全一致的。
@@ -45,7 +49,7 @@ export default function ProductCard({ product, dict, locale = 'en' }: { product:
       </Link>
       <div className="p-4 pt-2 flex flex-col flex-1">
         <div className="mt-2 text-sm text-gray-600 space-y-1">
-          <p>📍 {dict?.brand || 'Brand'}: <span className="font-medium">{product.brand || '-'}</span></p>
+          <p>📍 {dict?.brand || 'Brand'}: <span className="font-medium">{brandName || '-'}</span></p>
           <p>📅 {dict?.year || 'Year'}: {displayYear || '-'}</p>
           <p>⏱️ {dict?.hours || 'Hours'}: {product.hours ? `${product.hours} h` : '-'}</p>
         </div>

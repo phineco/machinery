@@ -63,12 +63,11 @@ export default function ProductFilters({ pDict }: { pDict: any }) {
             onChange={(e) => setBrand(e.target.value)}
           >
             <option value="">{pDict.allBrands || 'All Brands'}</option>
-            {/* API需要的是品牌ID还是名称？目前先假设可以用名称或待后端配合 */}
-            <option value="Caterpillar">Caterpillar</option>
-            <option value="Komatsu">Komatsu</option>
-            <option value="Hitachi">Hitachi</option>
-            <option value="Volvo">Volvo</option>
-            <option value="Doosan">Doosan</option>
+            <option value="1">Caterpillar</option>
+            <option value="2">Komatsu</option>
+            <option value="3">Hitachi</option>
+            <option value="4">Volvo</option>
+            <option value="5">Doosan</option>
           </select>
         </div>
         

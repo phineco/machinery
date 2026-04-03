@@ -4,7 +4,7 @@ import { getDictionary } from '@/i18n/dictionaries';
 import ProductGallery from '@/components/ProductGallery';
 import InquiryForm from '@/components/InquiryForm';
 import { fetchProductById } from '@/services/api';
-import { getCategoryName } from '@/utils/category';
+import { getCategoryName, getBrandName } from '@/utils/category';
 import { notFound } from 'next/navigation';
 
 export default async function ProductDetailPage({
@@ -27,8 +27,11 @@ export default async function ProductDetailPage({
     notFound();
   }
 
+  // 解析品牌名称
+  const brandName = getBrandName(product.brand);
+
   // 拼接标题
-  const productTitle = `${product.brand || ''} ${product.model || ''}`.trim() || `Product ${product.id}`;
+  const productTitle = `${brandName} ${product.model || ''}`.trim() || `Product ${product.id}`;
   
   // 处理图片数组
   const images = product.imgUrl ? product.imgUrl.split(',').filter(Boolean) : ['https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=excavator%20placeholder&image_size=landscape_4_3'];
@@ -103,7 +106,7 @@ export default async function ProductDetailPage({
             <div className="space-y-3 text-sm">
               <div className="flex justify-between border-b border-gray-100 pb-2">
                 <span className="text-gray-500">{pdDict.brand || 'Brand'}</span>
-                <span className="font-medium text-gray-900">{product.brand}</span>
+                <span className="font-medium text-gray-900">{brandName}</span>
               </div>
               <div className="flex justify-between border-b border-gray-100 pb-2">
                 <span className="text-gray-500">{pdDict.model || 'Model'}</span>
