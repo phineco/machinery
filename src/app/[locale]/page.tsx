@@ -1,35 +1,6 @@
 import ProductCard from '@/components/ProductCard';
 import { getDictionary } from '@/i18n/dictionaries';
-
-const mockProducts = [
-  {
-    id: '1',
-    title: 'Caterpillar 320D Excavator',
-    brand: 'Caterpillar',
-    year: 2018,
-    hours: 3500,
-    price: '$85,000',
-    imageUrl: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Professional%20Caterpillar%20320D%20excavator%20in%20construction%20site%2C%20yellow%20color%2C%20high%20quality%20photography&image_size=landscape_4_3'
-  },
-  {
-    id: '2',
-    title: 'Komatsu PC200-8 Excavator',
-    brand: 'Komatsu',
-    year: 2019,
-    hours: 2800,
-    price: '$78,000',
-    imageUrl: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Komatsu%20PC200-8%20excavator%20%2C%20professional%20construction%20equipment%20photography%2C%20clean%20background&image_size=landscape_4_3'
-  },
-  {
-    id: '3',
-    title: 'Hitachi ZX200-3 Excavator',
-    brand: 'Hitachi',
-    year: 2017,
-    hours: 4200,
-    price: '$72,000',
-    imageUrl: 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Hitachi%20ZX200-3%20excavator%2C%20professional%20construction%20machinery%20photography%2C%20orange%20color&image_size=landscape_4_3'
-  }
-];
+import { fetchProducts, ApiProduct } from '@/services/api';
 
 export default async function HomePage({
   params
@@ -38,6 +9,21 @@ export default async function HomePage({
 }) {
   const {locale} = await params;
   const dict = await getDictionary(locale);
+  
+  // 获取推荐产品或前几个产品作为首页展示
+  let featuredProducts: ApiProduct[] = [];
+  try {
+    const res = await fetchProducts({ size: 3, isRecommend: '1' });
+    featuredProducts = res.records || [];
+    
+    // 如果没有推荐产品，则获取最新的三个
+    if (featuredProducts.length === 0) {
+      const fallbackRes = await fetchProducts({ size: 3 });
+      featuredProducts = fallbackRes.records || [];
+    }
+  } catch (error) {
+    console.error('Failed to load featured products:', error);
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -51,8 +37,8 @@ export default async function HomePage({
       <div className="mb-12">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">{dict.HomePage.featuredProducts}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockProducts.map((product) => (
-            <ProductCard key={product.id} product={product} dict={dict.ProductCard} />
+          {featuredProducts.map((product: any) => (
+            <ProductCard key={product.id} product={product} dict={dict.ProductCard} locale={locale} />
           ))}
         </div>
       </div>

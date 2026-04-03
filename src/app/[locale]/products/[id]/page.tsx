@@ -3,66 +3,9 @@ import Link from 'next/link';
 import { getDictionary } from '@/i18n/dictionaries';
 import ProductGallery from '@/components/ProductGallery';
 import InquiryForm from '@/components/InquiryForm';
+import { fetchProductById } from '@/services/api';
+import { getCategoryName } from '@/utils/category';
 import { notFound } from 'next/navigation';
-
-// Mock data fetcher
-const getProduct = (id: string) => {
-  const products = [
-    {
-      id: '1',
-      title: 'Caterpillar 320C Tracked Excavator',
-      brand: 'Caterpillar',
-      model: '320C CAT 320BL 320D2 320E 330DL',
-      type: 'tracked excavator',
-      year: 2019,
-      hours: '3,700 m/h',
-      weight: '9,979 kg',
-      price: '$85,000',
-      location: 'Shanghai, China',
-      images: [
-        'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Professional%20Caterpillar%20320D%20excavator%20in%20construction%20site%2C%20yellow%20color%2C%20high%20quality%20photography&image_size=landscape_4_3',
-        'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Caterpillar%20excavator%20cabin%20interior%2C%20controls%20view&image_size=landscape_4_3',
-        'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Caterpillar%20excavator%20engine%20compartment%2C%20clean&image_size=landscape_4_3',
-        'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Caterpillar%20excavator%20tracks%20and%20undercarriage&image_size=landscape_4_3'
-      ],
-      description: 'Excellent condition Caterpillar tracked excavator. Ready for work. The engine and hydraulic pump are in perfect condition. No oil leak. Tracks are 80% new. We offer free repainting and maintenance service before shipping.'
-    },
-    {
-      id: '2',
-      title: 'Komatsu PC200-8 Excavator',
-      brand: 'Komatsu',
-      model: 'PC200-8',
-      type: 'tracked excavator',
-      year: 2019,
-      hours: '2,800 m/h',
-      weight: '19,500 kg',
-      price: '$78,000',
-      location: 'Shanghai, China',
-      images: [
-        'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Komatsu%20PC200-8%20excavator%20%2C%20professional%20construction%20equipment%20photography%2C%20clean%20background&image_size=landscape_4_3'
-      ],
-      description: 'Well-maintained Komatsu PC200-8. Original paint, powerful engine.'
-    },
-    {
-      id: '3',
-      title: 'Hitachi ZX200-3 Excavator',
-      brand: 'Hitachi',
-      model: 'ZX200-3',
-      type: 'tracked excavator',
-      year: 2017,
-      hours: '4,200 m/h',
-      weight: '20,000 kg',
-      price: '$72,000',
-      location: 'Shanghai, China',
-      images: [
-        'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Hitachi%20ZX200-3%20excavator%2C%20professional%20construction%20machinery%20photography%2C%20orange%20color&image_size=landscape_4_3'
-      ],
-      description: 'Reliable Hitachi excavator. Good working condition.'
-    }
-  ];
-
-  return products.find(p => p.id === id) || products[0]; // fallback to first for demo
-};
 
 export default async function ProductDetailPage({
   params
@@ -72,15 +15,31 @@ export default async function ProductDetailPage({
   const { locale, id } = await params;
   const dict = await getDictionary(locale);
   const pdDict = dict.ProductDetails || {};
-  const product = getProduct(id);
+  
+  let product;
+  try {
+    product = await fetchProductById(id);
+  } catch (error) {
+    console.error('Failed to load product details:', error);
+  }
 
   if (!product) {
     notFound();
   }
 
+  // 拼接标题
+  const productTitle = `${product.brand || ''} ${product.model || ''}`.trim() || `Product ${product.id}`;
+  
+  // 处理图片数组
+  const images = product.imgUrl ? product.imgUrl.split(',').filter(Boolean) : ['https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=excavator%20placeholder&image_size=landscape_4_3'];
+
   const waNumber = "8618949813729";
-  const waMessage = encodeURIComponent(`Hi, I'm interested in your ${product.title} (ID: ${product.id}). Could you provide more details?`);
+  const waMessage = encodeURIComponent(`Hi, I'm interested in your ${productTitle} (ID: ${product.id}). Could you provide more details?`);
   const waLink = `https://wa.me/${waNumber}?text=${waMessage}`;
+  
+  // 处理展示用的年份
+  const displayYear = product.years ? product.years.substring(0, 4) : '-';
+  const displayPrice = product.price ? `$${Number(product.price).toLocaleString('en-US')}` : 'Price on request';
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -90,20 +49,26 @@ export default async function ProductDetailPage({
         <span className="mx-2">/</span>
         <Link href={`/${locale}/products`} className="hover:text-blue-600">{dict.Navigation?.products || 'Products'}</Link>
         <span className="mx-2">/</span>
-        <span className="text-gray-900">{product.title}</span>
+        <span className="text-gray-900">{productTitle}</span>
       </nav>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column: Gallery & Details */}
         <div className="lg:col-span-2 space-y-8">
           <div className="bg-white p-4 rounded-lg shadow-sm border">
-            <ProductGallery images={product.images} alt={product.title} />
+            <ProductGallery images={images} alt={productTitle} />
           </div>
 
           <div className="bg-white p-6 rounded-lg shadow-sm border">
             <h2 className="text-2xl font-bold mb-4 border-b pb-2">{pdDict.description || 'Description'}</h2>
             <div className="prose max-w-none text-gray-700">
               <p>{product.description}</p>
+              {product.techParams && (
+                <div className="mt-4 pt-4 border-t">
+                  <h3 className="font-bold text-lg mb-2">Technical Parameters</h3>
+                  <pre className="whitespace-pre-wrap font-sans text-sm">{product.techParams}</pre>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -111,8 +76,8 @@ export default async function ProductDetailPage({
         {/* Right Column: Info & Action */}
         <div className="space-y-6">
           <div className="bg-white p-6 rounded-lg shadow-sm border">
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">{product.title}</h1>
-            <div className="text-3xl font-bold text-orange-600 mb-6">{product.price}</div>
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">{productTitle}</h1>
+            <div className="text-3xl font-bold text-orange-600 mb-6">{displayPrice}</div>
 
             <div className="space-y-3 mb-6">
               <a 
@@ -146,11 +111,11 @@ export default async function ProductDetailPage({
               </div>
               <div className="flex justify-between border-b border-gray-100 pb-2">
                 <span className="text-gray-500">{pdDict.type || 'Type'}</span>
-                <span className="font-medium text-gray-900">{product.type}</span>
+                <span className="font-medium text-gray-900">{getCategoryName(product.type, dict.ProductsPage)}</span>
               </div>
               <div className="flex justify-between border-b border-gray-100 pb-2">
                 <span className="text-gray-500">{pdDict.year || 'Year'}</span>
-                <span className="font-medium text-gray-900">{product.year}</span>
+                <span className="font-medium text-gray-900">{displayYear}</span>
               </div>
               <div className="flex justify-between border-b border-gray-100 pb-2">
                 <span className="text-gray-500">{pdDict.hours || 'Hours'}</span>
@@ -158,11 +123,11 @@ export default async function ProductDetailPage({
               </div>
               <div className="flex justify-between border-b border-gray-100 pb-2">
                 <span className="text-gray-500">{pdDict.weight || 'Weight'}</span>
-                <span className="font-medium text-gray-900">{product.weight}</span>
+                <span className="font-medium text-gray-900">{product.netWeight} kg</span>
               </div>
               <div className="flex justify-between pb-2">
                 <span className="text-gray-500">{pdDict.location || 'Location'}</span>
-                <span className="font-medium text-gray-900">{product.location}</span>
+                <span className="font-medium text-gray-900">{product.saleInfo || 'Shanghai, China'}</span>
               </div>
             </div>
           </div>

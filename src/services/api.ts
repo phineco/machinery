@@ -79,8 +79,8 @@ export async function fetchProducts(params: ProductQueryParams = {}): Promise<Ap
   });
 
   const queryString = searchParams.toString();
-  const url = `${API_BASE_URL}/machine/getMachineList${queryString ? `?${queryString}` : ''}`;
-
+  const url = `${API_BASE_URL}/machiapi/getMachineList${queryString ? `?${queryString}` : ''}`;
+console.log(url)
   try {
     const response = await fetch(url, {
       method: 'GET',
@@ -109,7 +109,7 @@ export async function fetchProducts(params: ProductQueryParams = {}): Promise<Ap
  * @returns Promise<ApiProduct>
  */
 export async function fetchProductById(id: string): Promise<ApiProduct> {
-  const url = `${API_BASE_URL}/machine/queryMachineById/${id}`;
+  const url = `${API_BASE_URL}/machiapi/queryMachineById/${id}`;
 
   try {
     const response = await fetch(url, {
