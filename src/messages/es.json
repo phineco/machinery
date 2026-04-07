@@ -36,11 +36,14 @@
   "InquiryForm": {
     "title": "Enviar Consulta",
     "name": "Nombre *",
-    "contact": "Email/WhatsApp *",
+    "email": "Correo Electrónico",
+    "phoneNumber": "Teléfono/WhatsApp",
     "message": "Mensaje",
     "submit": "Enviar Mensaje",
     "submitting": "Enviando...",
-    "success": "¡Gracias por su consulta! Nos pondremos en contacto pronto."
+    "success": "¡Gracias por su consulta! Nos pondremos en contacto pronto.",
+    "error": "Error al enviar la consulta. Por favor, inténtelo de nuevo.",
+    "contactRequired": "Por favor, proporcione un correo electrónico o un número de teléfono."
   },
   "Navigation": {
     "home": "Inicio",

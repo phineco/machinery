@@ -36,11 +36,14 @@
   "InquiryForm": {
     "title": "Send Inquiry",
     "name": "Name *",
-    "contact": "Email/WhatsApp *",
+    "email": "Email",
+    "phoneNumber": "Phone/WhatsApp",
     "message": "Message",
     "submit": "Send Message",
     "submitting": "Sending...",
-    "success": "Thank you for your inquiry! We will contact you soon."
+    "success": "Thank you for your inquiry! We will contact you soon.",
+    "error": "Failed to send inquiry. Please try again.",
+    "contactRequired": "Please provide either an Email or a Phone Number."
   },
   "Navigation": {
     "home": "Home",

@@ -100,6 +100,44 @@ export async function fetchProducts(params: ProductQueryParams = {}): Promise<Ap
   }
 }
 
+export interface InquiryData {
+  name: string;
+  email?: string;
+  phoneNumber?: string;
+  message?: string;
+  productId?: string;
+  [key: string]: any;
+}
+
+/**
+ * 提交询盘表单数据
+ *
+ * @param data 询盘表单数据
+ * @returns Promise<any>
+ */
+export async function submitInquiry(data: InquiryData): Promise<any> {
+  const url = `${API_BASE_URL}/machiapi/saveInquiry`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to submit inquiry: ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error in submitInquiry:', error);
+    throw error;
+  }
+}
+
 /**
  * 获取产品详细信息
  * 返回数据结构对应 /product.json

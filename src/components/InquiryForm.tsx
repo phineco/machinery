@@ -1,30 +1,32 @@
 'use client';
 import { useState } from 'react';
+import { submitInquiry, InquiryData } from '@/services/api';
 
 export default function InquiryForm({ productId, dict }: { productId?: string, dict?: any }) {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStatus('submitting');
     
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
+    // 验证：邮箱和电话不能同时为空
+    if (!data.email && !data.phoneNumber) {
+      alert(dict?.contactRequired || 'Please provide either an Email or a Phone Number so we can contact you.');
+      return;
+    }
+
+    setStatus('submitting');
+
     try {
       // 调用后端 API 保存留言
-      const response = await fetch('/api/inquiries', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, productId }),
-      });
+      await submitInquiry({
+        ...data,
+        productId,
+      } as InquiryData);
 
-      if (response.ok) {
-        setStatus('success');
-      } else {
-        setStatus('idle');
-        alert(dict?.error || 'Failed to send inquiry. Please try again.');
-      }
+      setStatus('success');
     } catch (error) {
       console.error('Error submitting form:', error);
       setStatus('idle');
@@ -44,8 +46,12 @@ export default function InquiryForm({ productId, dict }: { productId?: string, d
         <input name="name" required className="w-full border p-2 rounded" placeholder="Your Name" />
       </div>
       <div>
-        <label className="block text-sm font-medium mb-1">{dict?.contact || 'Contact *'}</label>
-        <input name="contact" required className="w-full border p-2 rounded" placeholder="Email or Phone Number" />
+        <label className="block text-sm font-medium mb-1">{dict?.email || 'Email'}</label>
+        <input type="email" name="email" className="w-full border p-2 rounded" placeholder="Your Email Address" />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">{dict?.phoneNumber || 'Phone Number'}</label>
+        <input type="tel" name="phoneNumber" className="w-full border p-2 rounded" placeholder="Your Phone/WhatsApp Number" />
       </div>
       <div>
         <label className="block text-sm font-medium mb-1">{dict?.message || 'Message'}</label>

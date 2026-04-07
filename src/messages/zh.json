@@ -36,11 +36,14 @@
   "InquiryForm": {
     "title": "发送询盘",
     "name": "姓名 *",
-    "contact": "邮箱/WhatsApp *",
+    "email": "电子邮箱",
+    "phoneNumber": "电话/WhatsApp",
     "message": "留言内容",
     "submit": "发送留言",
     "submitting": "发送中...",
-    "success": "感谢您的询盘！我们会尽快与您联系。"
+    "success": "感谢您的询盘！我们会尽快与您联系。",
+    "error": "发送失败，请重试。",
+    "contactRequired": "请提供您的电子邮箱或电话号码，以便我们与您联系。"
   },
   "Navigation": {
     "home": "首页",
