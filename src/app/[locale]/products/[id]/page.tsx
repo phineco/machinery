@@ -44,6 +44,16 @@ export default async function ProductDetailPage({
   const displayYear = product.years ? product.years.substring(0, 4) : '-';
   const displayPrice = product.price ? `$${Number(product.price).toLocaleString('en-US')}` : 'Price on request';
 
+  // 尝试解析技术参数（如果是 JSON 格式）
+  let techParamsData: Record<string, string> | null = null;
+  if (product.techParams) {
+    try {
+      techParamsData = JSON.parse(product.techParams);
+    } catch (e) {
+      // 解析失败说明可能是纯文本，不做处理
+    }
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumb */}
@@ -67,9 +77,28 @@ export default async function ProductDetailPage({
             <div className="prose max-w-none text-gray-700">
               <p>{product.description}</p>
               {product.techParams && (
-                <div className="mt-4 pt-4 border-t">
-                  <h3 className="font-bold text-lg mb-2">Technical Parameters</h3>
-                  <pre className="whitespace-pre-wrap font-sans text-sm">{product.techParams}</pre>
+                <div className="mt-8 pt-6 border-t border-gray-200">
+                  <h3 className="font-bold text-xl mb-4 text-gray-900">Technical Parameters</h3>
+                  {techParamsData && typeof techParamsData === 'object' && !Array.isArray(techParamsData) ? (
+                    <div className="overflow-x-auto">
+                      <table className="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-lg overflow-hidden">
+                        <tbody className="divide-y divide-gray-200 bg-white">
+                          {Object.entries(techParamsData).map(([key, value], index) => (
+                            <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600 w-1/3 border-r border-gray-200">
+                                {key}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                {String(value)}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    <pre className="whitespace-pre-wrap font-sans text-sm text-gray-700 bg-gray-50 p-4 rounded-lg border border-gray-100">{product.techParams}</pre>
+                  )}
                 </div>
               )}
             </div>
