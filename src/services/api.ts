@@ -109,7 +109,7 @@ console.log(url)
  * @returns Promise<ApiProduct>
  */
 export async function fetchProductById(id: string): Promise<ApiProduct> {
-  const url = `${API_BASE_URL}/machiapi/queryMachineById/${id}`;
+  const url = `${API_BASE_URL}/machiapi/queryMachineById/?id=${id}`;
 
   try {
     const response = await fetch(url, {
