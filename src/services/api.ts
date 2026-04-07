@@ -131,7 +131,8 @@ export async function submitInquiry(data: InquiryData): Promise<any> {
       throw new Error(`Failed to submit inquiry: ${response.statusText}`);
     }
 
-    return await response.json();
+    // 后端返回的是纯文本（例如 "保存留言信息成功"），因此用 text() 解析而不是 json()
+    return await response.text();
   } catch (error) {
     console.error('Error in submitInquiry:', error);
     throw error;
