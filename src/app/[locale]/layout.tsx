@@ -14,7 +14,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body>
+      <body className="bg-gray-50 text-gray-900 antialiased min-h-screen">
         <Navigation locale={locale} dict={dict.Navigation} />
         {children}
         <FloatingWhatsApp />
