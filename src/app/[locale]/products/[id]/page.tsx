@@ -36,7 +36,7 @@ export default async function ProductDetailPage({
   // 处理图片数组
   const images = product.imgUrl ? product.imgUrl.split(',').filter(Boolean) : ['https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=excavator%20placeholder&image_size=landscape_4_3'];
 
-  const waNumber = "8618949813729";
+  const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+8618949813729";
   const waMessage = encodeURIComponent(`Hi, I'm interested in your ${productTitle} (ID: ${product.id}). Could you provide more details?`);
   const waLink = `https://wa.me/${waNumber}?text=${waMessage}`;
   

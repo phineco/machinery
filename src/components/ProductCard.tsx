@@ -9,8 +9,8 @@ export default function ProductCard({ product, dict, locale = 'en' }: { product:
   // 解析品牌名称
   const brandName = getBrandName(product.brand);
 
-  // WhatsApp 预设消息格式
-  const waNumber = "8613800000000"; // 替换为您的 WhatsApp 商业号
+  // WhatsApp 预设消息格式，从环境变量读取，如果未设置则使用默认值
+  const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+8618949813729";
   // 拼接标题，如果有品牌和型号则拼接，否则用ID
   const productTitle = `${brandName} ${product.model || ''}`.trim() || `Product ${product.id}`;
   // React Hydration 会在客户端使用 encodeURIComponent 后的值与服务端对比可能出现问题，

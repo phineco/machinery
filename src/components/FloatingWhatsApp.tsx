@@ -1,5 +1,5 @@
 export default function FloatingWhatsApp() {
-  const waNumber = "8618949813729";
+  const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+8618949813729";
   const waLink = `https://wa.me/${waNumber}?text=Hi, I need help with used machinery.`;
 
   return (
