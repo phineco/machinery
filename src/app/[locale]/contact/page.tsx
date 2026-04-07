@@ -13,6 +13,7 @@ export default async function ContactPage({
   const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+8618949813729";
   // 将类似 "+8618949813729" 格式化为 "+86 189 4981 3729" 用于显示，如果是其他格式则直接显示
   const displayWaNumber = waNumber.replace(/^(\+\d{2})(\d{3})(\d{4})(\d{4})$/, '$1 $2 $3 $4') || waNumber;
+  const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@machinery100.com";
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -32,7 +33,7 @@ export default async function ContactPage({
                 </div>
                 <div className="flex items-center">
                   <span className="font-medium w-24">{cDict.email || 'Email:'}</span>
-                  <span>info@machinery-export.com</span>
+                  <a href={`mailto:${contactEmail}`} className="text-blue-600 hover:underline">{contactEmail}</a>
                 </div>
                 <div className="flex items-center">
                   <span className="font-medium w-24">{cDict.address || 'Address:'}</span>
