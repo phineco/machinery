@@ -80,7 +80,6 @@ export async function fetchProducts(params: ProductQueryParams = {}): Promise<Ap
 
   const queryString = searchParams.toString();
   const url = `${API_BASE_URL}/machiapi/getMachineList${queryString ? `?${queryString}` : ''}`;
-console.log(url)
   try {
     const response = await fetch(url, {
       method: 'GET',
@@ -110,8 +109,8 @@ console.log(url)
  * @returns Promise<ApiProduct>
  */
 export async function fetchProductById(id: string, locale: string = 'en'): Promise<ApiProduct> {
-  const url = `${API_BASE_URL}/machiapi/queryMachineById/?id=${id}&language=${locale}`;
-
+  const url = `${API_BASE_URL}/machiapi/queryMachineById/?id=${id}&localCode=${locale}`;
+  console.log(url)
   try {
     const response = await fetch(url, {
       method: 'GET',
