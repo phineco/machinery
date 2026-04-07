@@ -18,7 +18,7 @@ export default async function ProductDetailPage({
   
   let product;
   try {
-    product = await fetchProductById(id);
+    product = await fetchProductById(id, locale);
   } catch (error) {
     console.error('Failed to load product details:', error);
   }

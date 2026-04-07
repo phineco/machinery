@@ -106,10 +106,11 @@ console.log(url)
  * 返回数据结构对应 /product.json
  *
  * @param id 产品ID
+ * @param locale 当前页面语言代码（如 'en', 'zh', 'es'）
  * @returns Promise<ApiProduct>
  */
-export async function fetchProductById(id: string): Promise<ApiProduct> {
-  const url = `${API_BASE_URL}/machiapi/queryMachineById/?id=${id}`;
+export async function fetchProductById(id: string, locale: string = 'en'): Promise<ApiProduct> {
+  const url = `${API_BASE_URL}/machiapi/queryMachineById/?id=${id}&language=${locale}`;
 
   try {
     const response = await fetch(url, {
