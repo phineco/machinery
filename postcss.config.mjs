@@ -1,6 +1,7 @@
 const config = {
   plugins: {
-    '@tailwindcss/postcss': {},
+    tailwindcss: {}, // v3 使用这个名称
+    autoprefixer: {},
   },
 };
 
