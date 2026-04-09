@@ -64,7 +64,7 @@ npm run build
 **临时启动测试（退出终端后会停止）**:
 ```bash
 npm run start
-# 默认服务会运行在 http://localhost:3000
+# 默认服务会运行在 http://localhost:8001
 ```
 
 **正式后台守护运行 (强烈推荐使用 PM2)**:
@@ -86,7 +86,7 @@ pm2 startup
 
 ## 3. 配置 Nginx 反向代理 (推荐)
 
-一般情况下，Next.js 运行在 `3000` 端口。在生产环境中，我们需要使用 Nginx 将 `80` (HTTP) 或 `443` (HTTPS) 端口的外部请求转发到该内部端口，并配置您的正式域名。
+一般情况下，我们在 `package.json` 中配置了项目运行在 `8001` 端口。在生产环境中，我们需要使用 Nginx 将 `80` (HTTP) 或 `443` (HTTPS) 端口的外部请求转发到该内部端口，并配置您的正式域名。
 
 1. 在服务器上创建 Nginx 配置文件，例如 `/etc/nginx/sites-available/machinery-portal`
 2. 填入如下基础代理配置：
@@ -98,7 +98,7 @@ server {
     server_name www.yourdomain.com yourdomain.com;
 
     location / {
-        proxy_pass http://localhost:3000;
+        proxy_pass http://localhost:8001;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
