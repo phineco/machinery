@@ -32,12 +32,29 @@ export default function ProductCard({ product, dict, locale = 'en' }: { product:
   // 使用 'en-US' 强制一致性，避免 hydration error
   const displayPrice = product.price ? `$${Number(product.price).toLocaleString('en-US')}` : 'Price on request';
 
+  // 处理图片 URL
+  let imageUrl = 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=excavator%20placeholder&image_size=landscape_4_3';
+  if (product.imgUrl) {
+    // 如果图片是逗号分隔的多个 URL，只取第一个作为封面图
+    const urls = product.imgUrl.split(',');
+    if (urls.length > 0 && urls[0]) {
+      const path = urls[0].trim();
+      // 如果已经是完整URL则直接使用，否则拼接图片服务器地址
+      if (path.startsWith('http')) {
+        imageUrl = path;
+      } else {
+        const imageBaseUrl = process.env.NEXT_PUBLIC_IMAGE_BASE_URL || '';
+        imageUrl = `${imageBaseUrl}${path.startsWith('/') ? '' : '/'}${path}`;
+      }
+    }
+  }
+
   return (
     <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition bg-white flex flex-col h-full">
       <Link href={`/${locale}/products/${product.id}`} className="block group">
         <div className="relative h-48 w-full overflow-hidden bg-gray-100">
           <Image 
-            src={product.imgUrl || 'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=excavator%20placeholder&image_size=landscape_4_3'} 
+            src={imageUrl} 
             alt={productTitle} 
             fill 
             className="object-cover group-hover:scale-105 transition-transform duration-300" 
