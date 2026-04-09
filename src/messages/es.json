@@ -13,13 +13,15 @@
     "yearsExperience": "Años de Experiencia"
   },
   "ProductCard": {
+    "productId": "ID del producto",
     "brand": "Marca",
     "year": "Año",
     "hours": "Horas",
-    "inquire": "Enviar Consulta",
+    "inquire": "Enviar consulta",
     "whatsapp": "WhatsApp"
   },
   "ProductDetails": {
+    "productId": "ID del producto",
     "brand": "Marca",
     "model": "Modelo",
     "type": "Tipo",

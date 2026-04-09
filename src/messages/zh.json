@@ -13,6 +13,7 @@
     "yearsExperience": "年行业经验"
   },
   "ProductCard": {
+    "productId": "商品编号",
     "brand": "品牌",
     "year": "年份",
     "hours": "小时数",
@@ -20,6 +21,7 @@
     "whatsapp": "WhatsApp"
   },
   "ProductDetails": {
+    "productId": "商品编号",
     "brand": "品牌",
     "model": "型号",
     "type": "类型",

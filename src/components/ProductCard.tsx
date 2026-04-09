@@ -22,7 +22,7 @@ export default function ProductCard({ product, dict, locale = 'en' }: { product:
   // 也可以通过 suppressHydrationWarning 解决客户端生成的日期等不一致
   // 不过我们这里确保纯函数逻辑一致即可。
 
-  const waMessage = encodeURIComponent(`Hi, I'm interested in your ${productTitle} (ID: ${product.id}). Could you provide more details?`);
+  const waMessage = encodeURIComponent(`Hi, I'm interested in your ${productTitle} (Product ID: ${product.stockId || product.id}). Could you provide more details?`);
   const waLink = `https://wa.me/${waNumber}?text=${waMessage}`;
 
   // 处理年份展示，如果是完整日期字符串，只取年份
@@ -66,6 +66,7 @@ export default function ProductCard({ product, dict, locale = 'en' }: { product:
       </Link>
       <div className="p-4 pt-2 flex flex-col flex-1">
         <div className="mt-2 text-sm text-gray-600 space-y-1">
+          <p>🏷️ {dict?.productId || 'Product ID'}: <span className="font-medium">{product.stockId || product.id}</span></p>
           <p>📍 {dict?.brand || 'Brand'}: <span className="font-medium">{brandName || '-'}</span></p>
           <p>📅 {dict?.year || 'Year'}: {displayYear || '-'}</p>
           <p>⏱️ {dict?.hours || 'Hours'}: {product.hours ? `${product.hours} h` : '-'}</p>

@@ -44,7 +44,7 @@ export default async function ProductDetailPage({
     : ['https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=excavator%20placeholder&image_size=landscape_4_3'];
 
   const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+8618949813729";
-  const waMessage = encodeURIComponent(`Hi, I'm interested in your ${productTitle} (ID: ${product.id}). Could you provide more details?`);
+  const waMessage = encodeURIComponent(`Hi, I'm interested in your ${productTitle} (Product ID: ${product.stockId || product.id}). Could you provide more details?`);
   const waLink = `https://wa.me/${waNumber}?text=${waMessage}`;
   
   // 处理展示用的年份
@@ -140,6 +140,10 @@ export default async function ProductDetailPage({
 
             <h3 className="font-bold text-lg mb-4 border-b pb-2">{pdDict.basicInfo || 'Basic Information'}</h3>
             <div className="space-y-3 text-sm">
+              <div className="flex justify-between border-b border-gray-100 pb-2">
+                <span className="text-gray-500">{dict.ProductCard?.productId || 'Product ID'}</span>
+                <span className="font-medium text-gray-900">{product.stockId || product.id}</span>
+              </div>
               <div className="flex justify-between border-b border-gray-100 pb-2">
                 <span className="text-gray-500">{pdDict.brand || 'Brand'}</span>
                 <span className="font-medium text-gray-900">{brandName}</span>
