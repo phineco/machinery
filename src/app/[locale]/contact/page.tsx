@@ -37,7 +37,7 @@ export default async function ContactPage({
                 </div>
                 <div className="flex items-center">
                   <span className="font-medium w-24">{cDict.address || 'Address:'}</span>
-                  <span>{cDict.addressValue || 'Shanghai, China'}</span>
+                  <span>{cDict.addressValue || 'Hefei, China'}</span>
                 </div>
               </div>
             </div>
@@ -47,7 +47,7 @@ export default async function ContactPage({
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span>{cDict.monFri || 'Monday - Friday:'}</span>
-                  <span>8:00 AM - 6:00 PM</span>
+                  <span>9:00 AM - 6:00 PM</span>
                 </div>
                 <div className="flex justify-between">
                   <span>{cDict.sat || 'Saturday:'}</span>

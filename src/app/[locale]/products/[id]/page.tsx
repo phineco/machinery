@@ -170,7 +170,7 @@ export default async function ProductDetailPage({
               </div>
               <div className="flex justify-between pb-2">
                 <span className="text-gray-500">{pdDict.location || 'Location'}</span>
-                <span className="font-medium text-gray-900">{product.saleInfo || 'Shanghai, China'}</span>
+                <span className="font-medium text-gray-900">{product.saleInfo || 'Hefei, China'}</span>
               </div>
             </div>
           </div>
