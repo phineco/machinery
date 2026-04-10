@@ -148,7 +148,9 @@ export async function submitInquiry(data: InquiryData): Promise<any> {
  * @returns Promise<ApiProduct>
  */
 export async function fetchProductById(id: string, locale: string = 'en'): Promise<ApiProduct> {
-  const url = `${API_BASE_URL}/machiapi/queryMachineById/?id=${id}&localCode=${locale}`;
+  const safeId = encodeURIComponent(id);
+  const safeLocale = encodeURIComponent(locale);
+  const url = `${API_BASE_URL}/machiapi/queryMachineById/?id=${safeId}&localCode=${safeLocale}`;
   console.log(url)
   try {
     const response = await fetch(url, {
