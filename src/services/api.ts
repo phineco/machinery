@@ -116,7 +116,8 @@ export interface InquiryData {
  * @returns Promise<any>
  */
 export async function submitInquiry(data: InquiryData): Promise<any> {
-  const url = `${API_BASE_URL}/machiapi/saveInquiry`;
+  // 注意：此处是提交给前端自己的 Next.js API Route 进行参数校验和清洗
+  const url = `/api/inquiries`;
 
   try {
     const response = await fetch(url, {
@@ -128,11 +129,11 @@ export async function submitInquiry(data: InquiryData): Promise<any> {
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to submit inquiry: ${response.statusText}`);
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || `Failed to submit inquiry: ${response.statusText}`);
     }
 
-    // 后端返回的是纯文本（例如 "保存留言信息成功"），因此用 text() 解析而不是 json()
-    return await response.text();
+    return await response.json();
   } catch (error) {
     console.error('Error in submitInquiry:', error);
     throw error;

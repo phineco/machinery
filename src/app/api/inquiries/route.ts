@@ -31,31 +31,41 @@ export async function POST(request: NextRequest) {
 
     // 3. 基础格式校验
     if (!validator.isLength(name, { min: 1, max: 64 })) {
-      return NextResponse.json({ error: 'Name length is invalid' }, { status: 400 });
+      return NextResponse.json({ error: 'Name length is invalid (must be between 1 and 64 characters)' }, { status: 400 });
     }
     if (email && !validator.isEmail(email)) {
       return NextResponse.json({ error: 'Email format is invalid' }, { status: 400 });
     }
     if (phoneNumber && !validator.isLength(phoneNumber, { min: 1, max: 64 })) {
-      return NextResponse.json({ error: 'Phone number length is invalid' }, { status: 400 });
+      return NextResponse.json({ error: 'Phone number length is invalid (must be between 1 and 64 characters)' }, { status: 400 });
     }
 
-    if (!validator.isLength(message, { min: 1, max: 1024 })) {
-      return NextResponse.json({ error: 'message is invalid' }, { status: 400 });
+    if (message && !validator.isLength(message, { min: 0, max: 1024 })) {
+      return NextResponse.json({ error: 'Message length is invalid (maximum 1024 characters)' }, { status: 400 });
     }
 
     // 模拟数据库存储，返回成功响应
-    const inquiry = {
-      id: Math.random().toString(36).substr(2, 9),
-      name,
-      email,
-      phoneNumber,
-      message,
-      productId,
-      createdAt: new Date().toISOString(),
-    };
+    // 注意：如果是直接转发给 Java 后端，在这里使用 fetch() 调用原 API_BASE_URL 的 /machiapi/saveInquiry
+    const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8082/api';
+    const response = await fetch(`${API_BASE_URL}/machiapi/saveInquiry`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        phoneNumber,
+        message,
+        productId
+      }),
+    });
 
-    return NextResponse.json(inquiry, { status: 201 });
+    if (!response.ok) {
+      return NextResponse.json({ error: 'Failed to save inquiry to backend' }, { status: response.status });
+    }
+
+    return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {
     console.error('Error creating inquiry:', error);
     return NextResponse.json(

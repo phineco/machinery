@@ -4,9 +4,11 @@ import { submitInquiry, InquiryData } from '@/services/api';
 
 export default function InquiryForm({ productId, dict }: { productId?: string, dict?: any }) {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrorMessage(null);
     
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
@@ -21,16 +23,20 @@ export default function InquiryForm({ productId, dict }: { productId?: string, d
 
     try {
       // 调用后端 API 保存留言
-      await submitInquiry({
+      const response = await submitInquiry({
         ...data,
         productId,
       } as InquiryData);
-
+      
+      // 我们在 services/api.ts 里对非 2xx 的响应抛出了异常，
+      // 所以如果执行到这里，说明服务端验证通过并且保存成功了。
       setStatus('success');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error submitting form:', error);
       setStatus('idle');
-      alert(dict?.error || 'Failed to send inquiry. Please try again.');
+      // 如果 error 带有服务端返回的具体信息，提取出来显示给用户
+      const errorMsg = error.message || dict?.error || 'Failed to send inquiry. Please try again.';
+      setErrorMessage(errorMsg);
     }
   };
 
@@ -41,6 +47,13 @@ export default function InquiryForm({ productId, dict }: { productId?: string, d
   return (
     <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-lg shadow-sm border">
       <h3 className="font-bold text-lg border-b pb-2">{dict?.title || 'Send Inquiry'}</h3>
+      
+      {errorMessage && (
+        <div className="p-3 bg-red-50 text-red-600 text-sm rounded border border-red-100">
+          {errorMessage}
+        </div>
+      )}
+
       <div>
         <label className="block text-sm font-medium mb-1">{dict?.name || 'Name *'}</label>
         <input name="name" required className="w-full border p-2 rounded" placeholder="Your Name" />
