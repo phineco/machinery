@@ -36,8 +36,8 @@ export async function POST(request: NextRequest) {
     if (email && !validator.isEmail(email)) {
       return NextResponse.json({ error: 'Email format is invalid' }, { status: 400 });
     }
-    if (phoneNumber && !validator.isLength(phoneNumber, { min: 1, max: 64 })) {
-      return NextResponse.json({ error: 'Phone number length is invalid (must be between 1 and 64 characters)' }, { status: 400 });
+    if (phoneNumber && !validator.isLength(phoneNumber, { min: 1, max: 20 })) {
+      return NextResponse.json({ error: 'Phone number length is invalid (must be between 1 and 20 characters)' }, { status: 400 });
     }
 
     if (message && !validator.isLength(message, { min: 0, max: 1024 })) {

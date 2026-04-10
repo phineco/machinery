@@ -56,19 +56,19 @@ export default function InquiryForm({ productId, dict }: { productId?: string, d
 
       <div>
         <label className="block text-sm font-medium mb-1">{dict?.name || 'Name *'}</label>
-        <input name="name" required className="w-full border p-2 rounded" placeholder="Your Name" />
+        <input name="name" required maxLength={64} className="w-full border p-2 rounded" placeholder="Your Name" />
       </div>
       <div>
         <label className="block text-sm font-medium mb-1">{dict?.email || 'Email'}</label>
-        <input type="email" name="email" className="w-full border p-2 rounded" placeholder="Your Email Address" />
+        <input type="email" name="email" maxLength={64} className="w-full border p-2 rounded" placeholder="Your Email Address" />
       </div>
       <div>
         <label className="block text-sm font-medium mb-1">{dict?.phoneNumber || 'Phone Number'}</label>
-        <input type="tel" name="phoneNumber" className="w-full border p-2 rounded" placeholder="Your Phone/WhatsApp Number" />
+        <input type="tel" name="phoneNumber" maxLength={20} className="w-full border p-2 rounded" placeholder="Your Phone/WhatsApp Number" />
       </div>
       <div>
         <label className="block text-sm font-medium mb-1">{dict?.message || 'Message'}</label>
-        <textarea name="message" rows={4} className="w-full border p-2 rounded" placeholder="What are you looking for?"></textarea>
+        <textarea name="message" rows={4} maxLength={1024} className="w-full border p-2 rounded" placeholder="What are you looking for?"></textarea>
       </div>
       <button 
         type="submit" 
