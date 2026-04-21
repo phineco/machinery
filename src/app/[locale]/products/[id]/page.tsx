@@ -28,7 +28,7 @@ export default async function ProductDetailPage({
   }
 
   // 解析品牌名称
-  const brandName = getBrandName(product.brand);
+  const brandName = getBrandName(product.brand, dict.ProductsPage);
 
   // 拼接标题
   const productTitle = `${brandName} ${product.model || ''}`.trim() || `Product ${product.id}`;

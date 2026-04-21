@@ -51,7 +51,7 @@ export default async function ProductsPage({
           {products.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {products.map((product) => (
-                <ProductCard key={product.id} product={product} dict={dict.ProductCard} locale={locale} />
+                <ProductCard key={product.id} product={product} dict={dict} locale={locale} />
               ))}
             </div>
           ) : (

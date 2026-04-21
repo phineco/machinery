@@ -38,7 +38,7 @@ export default async function HomePage({
         <h2 className="text-2xl font-bold text-gray-900 mb-6">{dict.HomePage.featuredProducts}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredProducts.map((product: any) => (
-            <ProductCard key={product.id} product={product} dict={dict.ProductCard} locale={locale} />
+            <ProductCard key={product.id} product={product} dict={dict} locale={locale} />
           ))}
         </div>
       </div>

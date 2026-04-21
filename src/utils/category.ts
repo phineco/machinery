@@ -45,21 +45,23 @@ export function getCategoryName(typeValue: string | number, dict: any): string {
  * @param brandValue API 返回的 brand 字符串或数字（如 '1', '2'）
  * @returns 品牌名称文本
  */
-export function getBrandName(brandValue: string | number | undefined): string {
+export function getBrandName(brandValue: string | number | undefined, dict?: any): string {
   if (!brandValue) return '';
   const brandStr = String(brandValue);
   
   switch (brandStr) {
     case '1':
-      return 'Caterpillar';
+      return dict?.brand_caterpillar || 'Caterpillar';
     case '2':
-      return 'Komatsu';
+      return dict?.brand_komatsu || 'Komatsu';
     case '3':
-      return 'Hitachi';
+      return dict?.brand_hitachi || 'Hitachi';
     case '4':
-      return 'Volvo';
+      return dict?.brand_doosan || 'Doosan';
     case '5':
-      return 'Doosan';
+      return dict?.brand_sany || 'SANY';
+    case '6':
+      return dict?.brand_xcmg || 'XCMG';
     default:
       // 如果后端传来的不是数字，而是真实名称，直接返回
       return brandStr;

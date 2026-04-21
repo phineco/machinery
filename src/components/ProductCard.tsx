@@ -7,7 +7,7 @@ import { getBrandName } from '@/utils/category';
 
 export default function ProductCard({ product, dict, locale = 'en' }: { product: ApiProduct, dict: any, locale?: string }) {
   // 解析品牌名称
-  const brandName = getBrandName(product.brand);
+  const brandName = getBrandName(product.brand, dict?.ProductsPage);
 
   // WhatsApp 预设消息格式，从环境变量读取，如果未设置则使用默认值
   const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+8618949813729";
@@ -66,10 +66,10 @@ export default function ProductCard({ product, dict, locale = 'en' }: { product:
       </Link>
       <div className="p-4 pt-2 flex flex-col flex-1">
         <div className="mt-2 text-sm text-gray-600 space-y-1">
-          <p>🏷️ {dict?.productId || 'Product ID'}: <span className="font-medium">{product.stockId || product.id}</span></p>
-          <p>📍 {dict?.brand || 'Brand'}: <span className="font-medium">{brandName || '-'}</span></p>
-          <p>📅 {dict?.year || 'Year'}: {displayYear || '-'}</p>
-          <p>⏱️ {dict?.hours || 'Hours'}: {product.hours ? `${product.hours} h` : '-'}</p>
+          <p>🏷️ {dict?.ProductCard?.productId || 'Product ID'}: <span className="font-medium">{product.stockId || product.id}</span></p>
+          <p>📍 {dict?.ProductCard?.brand || 'Brand'}: <span className="font-medium">{brandName || '-'}</span></p>
+          <p>📅 {dict?.ProductCard?.year || 'Year'}: {displayYear || '-'}</p>
+          <p>⏱️ {dict?.ProductCard?.hours || 'Hours'}: {product.hours ? `${product.hours} h` : '-'}</p>
         </div>
         <div className="mt-4 flex items-center justify-between mt-auto">
           <span className="text-xl font-bold text-orange-600" suppressHydrationWarning>{displayPrice}</span>
@@ -83,7 +83,7 @@ export default function ProductCard({ product, dict, locale = 'en' }: { product:
             className="flex-1 bg-green-500 hover:bg-green-600 text-white text-center py-2 rounded font-medium flex items-center justify-center gap-2"
             suppressHydrationWarning
           >
-            <span>💬 {dict?.whatsapp || 'WhatsApp'}</span>
+            <span>💬 {dict?.ProductCard?.whatsapp || 'WhatsApp'}</span>
           </a>
           {/* 在线留言按钮 - 跳转到联系页面并带上产品ID */}
           <Link 
@@ -91,7 +91,7 @@ export default function ProductCard({ product, dict, locale = 'en' }: { product:
             className="flex-1 border border-blue-600 text-blue-600 hover:bg-blue-50 py-2 rounded font-medium text-center flex items-center justify-center"
             suppressHydrationWarning
           >
-            {dict?.inquire || 'Inquire'}
+            {dict?.ProductCard?.inquire || 'Inquire'}
           </Link>
         </div>
       </div>
