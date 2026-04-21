@@ -63,11 +63,12 @@ export default function ProductFilters({ pDict }: { pDict: any }) {
             onChange={(e) => setBrand(e.target.value)}
           >
             <option value="">{pDict.allBrands || 'All Brands'}</option>
-            <option value="1">Caterpillar</option>
-            <option value="2">Komatsu</option>
-            <option value="3">Hitachi</option>
-            <option value="4">Volvo</option>
-            <option value="5">Doosan</option>
+            <option value="1">{pDict.brand_caterpillar || 'Caterpillar'}</option>
+            <option value="2">{pDict.brand_komatsu || 'Komatsu'}</option>
+            <option value="3">{pDict.brand_hitachi || 'Hitachi'}</option>
+            <option value="4">{pDict.brand_doosan || 'Doosan'}</option>
+            <option value="5">{pDict.brand_sany || 'SANY'}</option>
+            <option value="6">{pDict.brand_xcmg || 'XCMG'}</option>
           </select>
         </div>
         
